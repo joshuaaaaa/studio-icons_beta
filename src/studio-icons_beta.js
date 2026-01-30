@@ -1,4 +1,4 @@
-const version = '1.0.1'
+const version = '1.1.0'
 
 /** Airbnb Lottie Library
  * https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js
@@ -37,6 +37,10 @@ class studioIcon extends HTMLElement {
     super();
     this._icon = null;
     this._lottie = null;
+    this._eventTarget = null;
+    this._boundMouseEnter = null;
+    this._boundMouseLeave = null;
+    this._initialized = false;
     this._alts = Object.keys(iconAlts);
     this._list = Object.keys(iconTemplates).concat(this._alts);
     const shadow = this.attachShadow({ mode: "open" });
@@ -63,10 +67,16 @@ class studioIcon extends HTMLElement {
     }
   }
   connectedCallback() {
+    // Guard against duplicate initialization (fixes flickering)
+    if (this._initialized) return;
+    
     const shadow = this.shadowRoot;
-    if (this.getAttribute("icon") != null && this._icon == null) {
-      this._icon = this.getAttribute("icon").substring(4);
-      this._icoType = this.getAttribute("icon").substring(0,3);
+    const iconAttr = this.getAttribute("icon");
+    
+    if (iconAttr != null && this._icon == null) {
+      this._initialized = true;
+      this._icon = iconAttr.substring(4);
+      this._icoType = iconAttr.substring(0,3);
 
       if (this._icoType == 'sil') {
         this._loop = true;
@@ -77,7 +87,7 @@ class studioIcon extends HTMLElement {
         this._autoplay = false;
       }
       if (!this._list.includes(this._icon)) {
-        this._icon = 'sil:alert-box-outline';
+        this._icon = 'alert-box-outline';
       }
       if (this._alts.includes(this._icon)) {
         this._icon = iconAlts[this._icon];
@@ -85,6 +95,7 @@ class studioIcon extends HTMLElement {
       }
       const wrapper = document.createElement("studio-icon-svg");
       shadow.appendChild(wrapper);
+      
       this._lottie = bodymovin.loadAnimation({
         container: wrapper,
         animationRunning: false,
@@ -92,38 +103,71 @@ class studioIcon extends HTMLElement {
         autoplay: this._autoplay,
         renderer: 'svg',
         animationData: iconTemplates[this._icon]
-      })
-      const iconLoaded = new Promise((resolve) => {
-        setTimeout(() => {
-          if (this.offsetParent) resolve();
-        }, 100);
-      });
-      iconLoaded.then(() => {
-        if (this._icoType == 'sis') {
-          var pthis = this;
-          if (this.offsetParent.tagName == "HA-CARD" && this.offsetParent.role == 'button') {
-            this.offsetParent.addEventListener('mouseenter', function () { mouseEnter(pthis) });
-            this.offsetParent.addEventListener('mouseleave', function () { mouseLeave(pthis) });
-          } else {
-            this.addEventListener('mouseenter', function () { mouseEnter(pthis) });
-            this.addEventListener('mouseleave', function () { mouseLeave(pthis) });
-          }
-        }
       });
 
-      function mouseEnter(pthis) {
-        pthis._lottie.setSpeed(2);
-        pthis._lottie.play();
-      }
-      function mouseLeave(pthis) {
-        pthis._lottie.setSpeed(1);
-        if (pthis._state == 'off') {
-          pthis._lottie.stop();
-        }
+      // Use requestAnimationFrame for reliable visibility detection
+      if (this._icoType == 'sis') {
+        this._setupEventListeners();
       }
     }    
   }
+  
+  _setupEventListeners() {
+    const setupEvents = () => {
+      if (!this.isConnected) return;
+      
+      // Create bound handlers for proper cleanup
+      this._boundMouseEnter = () => {
+        if (this._lottie) {
+          this._lottie.setSpeed(2);
+          this._lottie.play();
+        }
+      };
+      this._boundMouseLeave = () => {
+        if (this._lottie) {
+          this._lottie.setSpeed(1);
+          if (this._state == 'off') {
+            this._lottie.stop();
+          }
+        }
+      };
+
+      // Determine event target
+      const parent = this.offsetParent;
+      if (parent && parent.tagName == "HA-CARD" && parent.role == 'button') {
+        this._eventTarget = parent;
+      } else {
+        this._eventTarget = this;
+      }
+      
+      this._eventTarget.addEventListener('mouseenter', this._boundMouseEnter);
+      this._eventTarget.addEventListener('mouseleave', this._boundMouseLeave);
+    };
+    
+    // Wait for next frame to ensure element is properly rendered
+    requestAnimationFrame(() => {
+      requestAnimationFrame(setupEvents);
+    });
+  }
+  
   disconnectedCallback() {
+    // Cleanup Lottie animation to prevent memory leaks
+    if (this._lottie) {
+      this._lottie.stop();
+      this._lottie.destroy();
+      this._lottie = null;
+    }
+    
+    // Remove event listeners
+    if (this._eventTarget && this._boundMouseEnter) {
+      this._eventTarget.removeEventListener('mouseenter', this._boundMouseEnter);
+      this._eventTarget.removeEventListener('mouseleave', this._boundMouseLeave);
+    }
+    
+    this._eventTarget = null;
+    this._boundMouseEnter = null;
+    this._boundMouseLeave = null;
+    this._initialized = false;
   }
 }
 
@@ -192,6 +236,22 @@ customElements.whenDefined("ha-icon").then((()=>{
 function studioIconsState (haStateIcon) {
   if (typeof haStateIcon.__icon != "undefined" && haStateIcon.__icon != "undefined" 
   && (haStateIcon.__icon.substr(0,3) == "sil" || haStateIcon.__icon.substr(0,3) == "sis")) {
+    
+    // Guard: Check if studio-icon already exists and matches current icon (prevents flickering)
+    const existingIcon = haStateIcon.shadowRoot?.querySelector('studio-icon');
+    if (existingIcon && existingIcon.getAttribute('icon') === haStateIcon.__icon) {
+      // Only update state and color if needed
+      const state = haStateIcon.getAttribute('data-state');
+      const cs = window.getComputedStyle(haStateIcon);
+      if (existingIcon.getAttribute('state') !== state) {
+        existingIcon.setAttribute('state', state);
+      }
+      if (existingIcon.getAttribute('primary-color') !== cs.color) {
+        existingIcon.setAttribute('primary-color', cs.color);
+      }
+      return;
+    }
+    
     const cs = window.getComputedStyle(haStateIcon);
     const state = haStateIcon.getAttribute('data-state');
     const sIco = document.createElement('studio-icon');
@@ -207,6 +267,19 @@ function studioIconsOverwrite (haIcon) {
   if (typeof haIcon.__icon != "undefined" && haIcon.__icon != "undefined" 
   && haIcon.offsetParent != null && typeof haIcon.getAttribute('slot') == "undefined"
   && (haIcon.__icon.substr(0,3) == "sil" || haIcon.__icon.substr(0,3) == "sis")) {
+    
+    // Guard: Check if already replaced (prevents flickering)
+    if (haIcon._studioIconReplaced) return;
+    haIcon._studioIconReplaced = true;
+    
+    // Check if studio-icon sibling already exists
+    const nextSibling = haIcon.nextElementSibling;
+    if (nextSibling && nextSibling.tagName === 'STUDIO-ICON' 
+        && nextSibling.getAttribute('icon') === haIcon.__icon) {
+      haIcon.style.display = 'none';
+      return;
+    }
+    
     const sIco = document.createElement('studio-icon');
     const cs = window.getComputedStyle(haIcon);
     sIco.setAttribute('icon', haIcon.__icon);
@@ -252,4 +325,4 @@ var CSStemplate = `
   }
 `;
     
-console.info('%c STUDIO-ICONS 🌸 %c - BETA 0.1', 'color:#3b50cd; background:#cddc39; font-weight:900; font-family: Heebo, sans-serif; padding: 3px; border-radius: 5px;', 'color: #3b50cd; background:none;  font-family: Heebo, sans-serif;');
+console.info('%c STUDIO-ICONS 🌸 %c - v1.1.0 (fixed)', 'color:#3b50cd; background:#cddc39; font-weight:900; font-family: Heebo, sans-serif; padding: 3px; border-radius: 5px;', 'color: #3b50cd; background:none;  font-family: Heebo, sans-serif;');
