@@ -1,4 +1,4 @@
-const version = '1.1.0'
+const version = '1.2.0'
 
 /** Airbnb Lottie Library
  * https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js
@@ -234,12 +234,14 @@ customElements.whenDefined("ha-icon").then((()=>{
 ));
 
 function studioIconsState (haStateIcon) {
-  if (typeof haStateIcon.__icon != "undefined" && haStateIcon.__icon != "undefined" 
-  && (haStateIcon.__icon.substr(0,3) == "sil" || haStateIcon.__icon.substr(0,3) == "sis")) {
+  // Support both old (__icon) and new (icon) HA versions
+  const iconName = haStateIcon.__icon || haStateIcon.icon || haStateIcon._icon;
+  if (typeof iconName != "undefined" && iconName != "undefined" && iconName != null
+  && (iconName.substr(0,3) == "sil" || iconName.substr(0,3) == "sis")) {
     
     // Guard: Check if studio-icon already exists and matches current icon (prevents flickering)
     const existingIcon = haStateIcon.shadowRoot?.querySelector('studio-icon');
-    if (existingIcon && existingIcon.getAttribute('icon') === haStateIcon.__icon) {
+    if (existingIcon && existingIcon.getAttribute('icon') === iconName) {
       // Only update state and color if needed
       const state = haStateIcon.getAttribute('data-state');
       const cs = window.getComputedStyle(haStateIcon);
@@ -255,7 +257,7 @@ function studioIconsState (haStateIcon) {
     const cs = window.getComputedStyle(haStateIcon);
     const state = haStateIcon.getAttribute('data-state');
     const sIco = document.createElement('studio-icon');
-    sIco.setAttribute('icon', haStateIcon.__icon);
+    sIco.setAttribute('icon', iconName);
     haStateIcon.shadowRoot.innerHTML = '';
     haStateIcon.shadowRoot.appendChild(sIco);
     haStateIcon.shadowRoot.firstElementChild.setAttribute('primary-color', cs.color);
@@ -264,9 +266,11 @@ function studioIconsState (haStateIcon) {
 }
 
 function studioIconsOverwrite (haIcon) {
-  if (typeof haIcon.__icon != "undefined" && haIcon.__icon != "undefined" 
+  // Support both old (__icon) and new (icon) HA versions
+  const iconName = haIcon.__icon || haIcon.icon || haIcon._icon;
+  if (typeof iconName != "undefined" && iconName != "undefined" && iconName != null
   && haIcon.offsetParent != null && typeof haIcon.getAttribute('slot') == "undefined"
-  && (haIcon.__icon.substr(0,3) == "sil" || haIcon.__icon.substr(0,3) == "sis")) {
+  && (iconName.substr(0,3) == "sil" || iconName.substr(0,3) == "sis")) {
     
     // Guard: Check if already replaced (prevents flickering)
     if (haIcon._studioIconReplaced) return;
@@ -275,14 +279,14 @@ function studioIconsOverwrite (haIcon) {
     // Check if studio-icon sibling already exists
     const nextSibling = haIcon.nextElementSibling;
     if (nextSibling && nextSibling.tagName === 'STUDIO-ICON' 
-        && nextSibling.getAttribute('icon') === haIcon.__icon) {
+        && nextSibling.getAttribute('icon') === iconName) {
       haIcon.style.display = 'none';
       return;
     }
     
     const sIco = document.createElement('studio-icon');
     const cs = window.getComputedStyle(haIcon);
-    sIco.setAttribute('icon', haIcon.__icon);
+    sIco.setAttribute('icon', iconName);
     if (typeof haIcon.getAttribute('slot') != "undefined") {
       sIco.setAttribute('slot', haIcon.getAttribute('slot'));
     }
@@ -325,4 +329,4 @@ var CSStemplate = `
   }
 `;
     
-console.info('%c STUDIO-ICONS 🌸 %c - v1.1.0 (fixed)', 'color:#3b50cd; background:#cddc39; font-weight:900; font-family: Heebo, sans-serif; padding: 3px; border-radius: 5px;', 'color: #3b50cd; background:none;  font-family: Heebo, sans-serif;');
+console.info('%c STUDIO-ICONS 🌸 %c - v1.2.0 (HA compatibility)', 'color:#3b50cd; background:#cddc39; font-weight:900; font-family: Heebo, sans-serif; padding: 3px; border-radius: 5px;', 'color: #3b50cd; background:none;  font-family: Heebo, sans-serif;');
