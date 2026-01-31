@@ -69,19 +69,52 @@ Search for icons using the prefix:
 - `sil:` for loop icons (e.g., `sil:weather-sunny`)
 - `sis:` for state icons (e.g., `sis:alert-box-outline`)
 
-### Available Icons
+### Available Icons (25 icons)
 
+#### Weather
 | Icon Name | Type | Description |
 |-----------|------|-------------|
-| `weather-sunny` | SIL | Animated sun |
+| `weather-sunny` | SIL | Animated sun with rays |
 | `weather-partly-cloudy` | SIL | Sun with clouds |
 | `weather-night` | SIL | Moon and stars |
 | `weather-fog` | SIL | Foggy weather |
 | `weather-hail` | SIL | Hail animation |
 | `cloud-outline` | SIL | Floating cloud |
-| `alert-box-outline` | SIS | Alert/warning icon |
-| `pot-steam-outline` | SIS | Steaming pot |
+| `lightning-bolt` | SIS | Flashing lightning |
+
+#### Home & Security
+| Icon Name | Type | Description |
+|-----------|------|-------------|
+| `door-open` | SIS | Animated door |
+| `lock-outline` | SIS | Lock with shackle animation |
+| `garage` | SIS | Garage door opening |
+| `motion-sensor` | SIL | Motion detection waves |
 | `sofa-single-outline` | SIS | Sofa icon |
+
+#### Devices
+| Icon Name | Type | Description |
+|-----------|------|-------------|
+| `lightbulb-outline` | SIS | Pulsing light bulb |
+| `fan` | SIL | Spinning fan blades |
+| `television` | SIS | TV with flickering screen |
+| `speaker` | SIS | Speaker with sound waves |
+| `thermostat` | SIL | Thermometer with rising level |
+| `power` | SIS | Power button pulse |
+| `wifi` | SIL | WiFi signal waves |
+
+#### Alerts & Notifications
+| Icon Name | Type | Description |
+|-----------|------|-------------|
+| `alert-box-outline` | SIS | Shaking alert icon |
+| `bell-outline` | SIS | Ringing bell |
+| `heart-outline` | SIS | Beating heart |
+
+#### Nature
+| Icon Name | Type | Description |
+|-----------|------|-------------|
+| `water-drop` | SIL | Bouncing water drop |
+| `leaf` | SIL | Swaying leaf |
+| `pot-steam-outline` | SIS | Steaming pot |
 
 ### Advanced Configuration
 

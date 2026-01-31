@@ -71,19 +71,52 @@ Hledejte ikony pomocí prefixu:
 - `sil:` pro smyčkové ikony (např. `sil:weather-sunny`)
 - `sis:` pro stavové ikony (např. `sis:alert-box-outline`)
 
-### Dostupné ikony
+### Dostupné ikony (25 ikon)
 
+#### Počasí
 | Název ikony | Typ | Popis |
 |-------------|-----|-------|
-| `weather-sunny` | SIL | Animované slunce |
+| `weather-sunny` | SIL | Animované slunce s paprsky |
 | `weather-partly-cloudy` | SIL | Slunce s mraky |
 | `weather-night` | SIL | Měsíc a hvězdy |
 | `weather-fog` | SIL | Mlhavé počasí |
 | `weather-hail` | SIL | Animace krupobití |
 | `cloud-outline` | SIL | Plovoucí mrak |
-| `alert-box-outline` | SIS | Ikona upozornění |
-| `pot-steam-outline` | SIS | Kouřící hrnec |
+| `lightning-bolt` | SIS | Blikající blesk |
+
+#### Domov a zabezpečení
+| Název ikony | Typ | Popis |
+|-------------|-----|-------|
+| `door-open` | SIS | Animované dveře |
+| `lock-outline` | SIS | Zámek s animací |
+| `garage` | SIS | Otevírání garážových vrat |
+| `motion-sensor` | SIL | Vlny detekce pohybu |
 | `sofa-single-outline` | SIS | Ikona pohovky |
+
+#### Zařízení
+| Název ikony | Typ | Popis |
+|-------------|-----|-------|
+| `lightbulb-outline` | SIS | Pulzující žárovka |
+| `fan` | SIL | Rotující ventilátor |
+| `television` | SIS | TV s blikající obrazovkou |
+| `speaker` | SIS | Reproduktor se zvukovými vlnami |
+| `thermostat` | SIL | Teploměr se stoupající hladinou |
+| `power` | SIS | Pulzující tlačítko napájení |
+| `wifi` | SIL | Vlny WiFi signálu |
+
+#### Upozornění a notifikace
+| Název ikony | Typ | Popis |
+|-------------|-----|-------|
+| `alert-box-outline` | SIS | Třesoucí se ikona upozornění |
+| `bell-outline` | SIS | Zvonící zvonek |
+| `heart-outline` | SIS | Bijící srdce |
+
+#### Příroda
+| Název ikony | Typ | Popis |
+|-------------|-----|-------|
+| `water-drop` | SIL | Poskakující kapka vody |
+| `leaf` | SIL | Pohybující se list |
+| `pot-steam-outline` | SIS | Kouřící hrnec |
 
 ### Pokročilá konfigurace
 
