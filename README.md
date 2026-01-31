@@ -9,7 +9,7 @@ Animated Lottie icons for Home Assistant.
 
 ## Features
 
-- **Animated Icons** - Smooth Lottie animations for your dashboard
+- **73 Animated Icons** - Smooth Lottie animations for your dashboard
 - **Two Animation Types:**
   - **SIL (Loop)** - Continuously animated icons
   - **SIS (State)** - Icons that animate on hover or state change
@@ -50,130 +50,168 @@ Use icons with the prefix:
 - `sil:` for loop icons (e.g., `sil:fan`)
 - `sis:` for state icons (e.g., `sis:lightbulb-outline`)
 
-### Button Card
+### Card Examples
 
 ```yaml
+# Button card
 type: button
 entity: light.living_room
-icon: sil:lightbulb-outline
-tap_action:
-  action: toggle
-```
+icon: sil:lightbulb-on
 
-### Entities Card
-
-```yaml
+# Entities card
 type: entities
 entities:
-  - entity: light.living_room
-    icon: sil:lightbulb-outline
+  - entity: climate.thermostat
+    icon: sil:thermostat
   - entity: fan.bedroom
     icon: sil:fan
   - entity: lock.front_door
     icon: sis:lock-outline
-```
 
-### Mushroom Cards
-
-```yaml
-type: custom:mushroom-entity-card
-entity: climate.thermostat
-icon: sil:thermostat
-```
-
-### Picture Elements Card
-
-```yaml
-type: picture-elements
-image: /local/floorplan.png
-elements:
-  - type: state-icon
-    entity: light.kitchen
-    icon: sil:lightbulb-outline
-    style:
-      left: 30%
-      top: 40%
-```
-
-### Conditional Card
-
-```yaml
-type: conditional
-conditions:
-  - entity: binary_sensor.motion
-    state: "on"
-card:
-  type: button
-  icon: sil:motion-sensor
-  entity: binary_sensor.motion
-```
-
-### Tile Card (HA 2023+)
-
-```yaml
+# Tile card
 type: tile
-entity: light.living_room
-icon: sil:lightbulb-outline
+entity: vacuum.robot
+icon: sil:robot-vacuum
 ```
 
-## Available Icons
+## Available Icons (73)
 
-| Icon Name | Type | Description |
-|-----------|------|-------------|
-| `alert-box-outline` | SIS | Shaking alert icon |
-| `battery-charging` | SIL | Charging battery |
-| `bell-outline` | SIS | Ringing bell |
-| `blinds` | SIS | Window blinds |
-| `camera` | SIS | Camera icon |
-| `car` | SIL | Moving car |
-| `clock-outline` | SIL | Ticking clock |
-| `cloud-outline` | SIL | Floating cloud |
-| `cog-outline` | SIL | Spinning cog |
-| `door-open` | SIS | Animated door |
-| `email-outline` | SIS | Email notification |
-| `fan` | SIL | Spinning fan |
-| `fire` | SIL | Burning fire |
-| `garage` | SIS | Garage door |
-| `heart-outline` | SIS | Beating heart |
-| `home-outline` | SIS | Home icon |
-| `leaf` | SIL | Swaying leaf |
-| `lightbulb-outline` | SIS | Pulsing light bulb |
-| `lightning-bolt` | SIS | Flashing lightning |
-| `lock-outline` | SIS | Lock animation |
-| `motion-sensor` | SIL | Motion waves |
-| `music-note` | SIL | Bouncing note |
-| `package-variant` | SIS | Package icon |
-| `pot-steam-outline` | SIS | Steaming pot |
-| `power` | SIS | Power button |
-| `recycle` | SIL | Recycling arrows |
-| `run` | SIL | Running person |
-| `smoke-detector` | SIS | Smoke detector |
-| `sofa-single-outline` | SIS | Sofa icon |
-| `solar-panel` | SIL | Solar panel |
-| `speaker` | SIS | Speaker with sound |
-| `television` | SIS | TV screen |
-| `thermostat` | SIL | Thermometer |
-| `washing-machine` | SIL | Spinning drum |
-| `water-drop` | SIL | Bouncing drop |
-| `weather-fog` | SIL | Foggy weather |
-| `weather-hail` | SIL | Hail animation |
-| `weather-night` | SIL | Moon and stars |
-| `weather-partly-cloudy` | SIL | Sun with clouds |
-| `weather-sunny` | SIL | Animated sun |
-| `wifi` | SIL | WiFi waves |
-| `window-open` | SIS | Open window |
+### Climate/HVAC
+| Icon | Name | Type |
+|------|------|------|
+| | `air-conditioner` | SIL |
+| | `fire` | SIL |
+| | `radiator` | SIL |
+| | `snowflake` | SIL |
+| | `thermometer-lines` | SIL |
+| | `thermostat` | SIL |
+| | `water-percent` | SIL |
 
-## Icon Types Explained
+### Lighting
+| Icon | Name | Type |
+|------|------|------|
+| | `brightness-6` | SIL |
+| | `ceiling-light` | SIS |
+| | `lightbulb-on` | SIL |
+| | `lightbulb-outline` | SIS |
+
+### Power/Energy
+| Icon | Name | Type |
+|------|------|------|
+| | `battery-charging` | SIL |
+| | `ev-station` | SIL |
+| | `flash` | SIS |
+| | `plug` | SIS |
+| | `power` | SIS |
+| | `solar-panel` | SIL |
+
+### Security
+| Icon | Name | Type |
+|------|------|------|
+| | `alert-box-outline` | SIS |
+| | `cctv` | SIL |
+| | `lock-outline` | SIS |
+| | `motion-sensor` | SIL |
+| | `shield-home` | SIS |
+| | `smoke-detector` | SIS |
+
+### Doors/Windows
+| Icon | Name | Type |
+|------|------|------|
+| | `blinds` | SIS |
+| | `door-open` | SIS |
+| | `garage` | SIS |
+| | `gate` | SIS |
+| | `window-open` | SIS |
+
+### Appliances
+| Icon | Name | Type |
+|------|------|------|
+| | `coffee` | SIL |
+| | `fan` | SIL |
+| | `fridge-outline` | SIL |
+| | `microwave` | SIL |
+| | `robot-vacuum` | SIL |
+| | `television` | SIS |
+| | `washing-machine` | SIL |
+
+### Media
+| Icon | Name | Type |
+|------|------|------|
+| | `cast` | SIL |
+| | `music-note` | SIL |
+| | `play-circle` | SIS |
+| | `speaker` | SIS |
+| | `volume-high` | SIL |
+
+### Network
+| Icon | Name | Type |
+|------|------|------|
+| | `router-wireless` | SIL |
+| | `server` | SIL |
+| | `wifi` | SIL |
+
+### Water
+| Icon | Name | Type |
+|------|------|------|
+| | `shower` | SIL |
+| | `sprinkler` | SIL |
+| | `water-drop` | SIL |
+| | `water-pump` | SIL |
+
+### Weather
+| Icon | Name | Type |
+|------|------|------|
+| | `cloud-outline` | SIL |
+| | `lightning-bolt` | SIS |
+| | `weather-fog` | SIL |
+| | `weather-hail` | SIL |
+| | `weather-night` | SIL |
+| | `weather-partly-cloudy` | SIL |
+| | `weather-sunny` | SIL |
+
+### Rooms
+| Icon | Name | Type |
+|------|------|------|
+| | `bed` | SIL |
+| | `desk` | SIL |
+| | `home-outline` | SIS |
+| | `sofa-single-outline` | SIS |
+
+### Notifications
+| Icon | Name | Type |
+|------|------|------|
+| | `bell-outline` | SIS |
+| | `check-circle` | SIS |
+| | `close-circle` | SIS |
+| | `email-outline` | SIS |
+
+### Misc
+| Icon | Name | Type |
+|------|------|------|
+| | `camera` | SIS |
+| | `car` | SIL |
+| | `clock-outline` | SIL |
+| | `cog-outline` | SIL |
+| | `heart-outline` | SIS |
+| | `leaf` | SIL |
+| | `package-variant` | SIS |
+| | `pot-steam-outline` | SIS |
+| | `recycle` | SIL |
+| | `run` | SIL |
+| | `timer` | SIL |
+
+## Icon Types
 
 ### SIL (Studio Icons Loop)
 - Continuously animated
-- Perfect for: fans, loading indicators, weather icons
-- Animation runs in a loop
+- Best for: fans, weather, loading states
+- Use: `sil:icon-name`
 
 ### SIS (Studio Icons State)
 - Animates on hover or state change
-- Perfect for: lights, locks, doors
-- Plays animation once when triggered
+- Best for: lights, locks, buttons
+- Use: `sis:icon-name`
 
 ## CSS Custom Properties
 
@@ -189,19 +227,15 @@ studio-icon {
 
 ### Icons not showing
 1. Restart Home Assistant after installation
-2. Clear browser cache (Ctrl+F5 or Cmd+Shift+R)
-3. Check browser console (F12) - you should see:
+2. Clear browser cache (Ctrl+Shift+R)
+3. Check browser console (F12) for:
    ```
-   STUDIO-ICONS 🌸 - v1.1.0 (fixed)
+   STUDIO-ICONS 🌸 - v1.4.0 (73 icons)
    ```
 
-### HACS doesn't find the repository
-1. Make sure you selected "Lovelace" category
-2. Try adding the repository again
-
-### Icons appear but don't animate
-1. Check if you're using the correct prefix (sil: or sis:)
-2. For SIS icons, hover over them to trigger animation
+### Icons show as alert icon
+- The icon name doesn't exist
+- Check spelling and use correct prefix (sil: or sis:)
 
 ## License
 
