@@ -5,6 +5,8 @@ Animated Lottie icons for Home Assistant.
 [![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**English** | [Čeština](README.cs.md)
+
 ## Features
 
 - **Animated Icons** - Smooth Lottie animations for your dashboard
@@ -40,15 +42,81 @@ frontend:
 
 4. Restart Home Assistant
 
-## Usage
+## Usage in Home Assistant
 
-### In the Icon Picker
+### Basic Usage
 
-Search for icons using the prefix:
-- `sil:` for loop icons (e.g., `sil:weather-sunny`)
-- `sis:` for state icons (e.g., `sis:alert-box-outline`)
+Use icons with the prefix:
+- `sil:` for loop icons (e.g., `sil:fan`)
+- `sis:` for state icons (e.g., `sis:lightbulb-outline`)
 
-### Available Icons
+### Button Card
+
+```yaml
+type: button
+entity: light.living_room
+icon: sil:lightbulb-outline
+tap_action:
+  action: toggle
+```
+
+### Entities Card
+
+```yaml
+type: entities
+entities:
+  - entity: light.living_room
+    icon: sil:lightbulb-outline
+  - entity: fan.bedroom
+    icon: sil:fan
+  - entity: lock.front_door
+    icon: sis:lock-outline
+```
+
+### Mushroom Cards
+
+```yaml
+type: custom:mushroom-entity-card
+entity: climate.thermostat
+icon: sil:thermostat
+```
+
+### Picture Elements Card
+
+```yaml
+type: picture-elements
+image: /local/floorplan.png
+elements:
+  - type: state-icon
+    entity: light.kitchen
+    icon: sil:lightbulb-outline
+    style:
+      left: 30%
+      top: 40%
+```
+
+### Conditional Card
+
+```yaml
+type: conditional
+conditions:
+  - entity: binary_sensor.motion
+    state: "on"
+card:
+  type: button
+  icon: sil:motion-sensor
+  entity: binary_sensor.motion
+```
+
+### Tile Card (HA 2023+)
+
+```yaml
+type: tile
+entity: light.living_room
+icon: sil:lightbulb-outline
+```
+
+## Available Icons
 
 | Icon Name | Type | Description |
 |-----------|------|-------------|
@@ -95,22 +163,17 @@ Search for icons using the prefix:
 | `wifi` | SIL | WiFi waves |
 | `window-open` | SIS | Open window |
 
-### Example Usage
+## Icon Types Explained
 
-```yaml
-# Button card example
-type: button
-entity: light.living_room
-icon: sil:lightbulb-outline
+### SIL (Studio Icons Loop)
+- Continuously animated
+- Perfect for: fans, loading indicators, weather icons
+- Animation runs in a loop
 
-# Entity card example
-type: entities
-entities:
-  - entity: binary_sensor.motion
-    icon: sil:motion-sensor
-  - entity: lock.front_door
-    icon: sis:lock-outline
-```
+### SIS (Studio Icons State)
+- Animates on hover or state change
+- Perfect for: lights, locks, doors
+- Plays animation once when triggered
 
 ## CSS Custom Properties
 
@@ -121,6 +184,24 @@ studio-icon {
   --mdc-icon-size: 32px;
 }
 ```
+
+## Troubleshooting
+
+### Icons not showing
+1. Restart Home Assistant after installation
+2. Clear browser cache (Ctrl+F5 or Cmd+Shift+R)
+3. Check browser console (F12) - you should see:
+   ```
+   STUDIO-ICONS 🌸 - v1.1.0 (fixed)
+   ```
+
+### HACS doesn't find the repository
+1. Make sure you selected "Lovelace" category
+2. Try adding the repository again
+
+### Icons appear but don't animate
+1. Check if you're using the correct prefix (sil: or sis:)
+2. For SIS icons, hover over them to trigger animation
 
 ## License
 
