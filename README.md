@@ -1,9 +1,8 @@
-# Studio Icons v2.0
+# Studio Icons
 
 Animated Lottie icons for Home Assistant.
 
-[![HACS Badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
-[![GitHub Release](https://img.shields.io/github/release/joshuaaaaa/studio-icons_beta.svg)](https://github.com/joshuaaaaa/studio-icons_beta/releases)
+[![HACS Badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
@@ -12,27 +11,7 @@ Animated Lottie icons for Home Assistant.
 - **Two Animation Types:**
   - **SIL (Loop)** - Continuously animated icons
   - **SIS (State)** - Icons that animate on hover or state change
-- **Performance Optimized:**
-  - Intersection Observer - animations pause when off-screen
-  - Lazy loading with caching
-  - Canvas renderer option for low-power devices
-- **Accessibility:**
-  - Respects `prefers-reduced-motion` setting
-  - Keyboard navigable
-- **TypeScript** - Full type definitions included
 - **HACS Compatible** - Easy installation via HACS
-
-## Preview
-
-### State Icons (SIS)
-Animate when state is on, or when you hover over the icon.
-
-![Preview](https://github.com/joshuaaaaa/studio-icons_beta/blob/main/docs/studio-icons-sis.gif)
-
-### Loop Icons (SIL)
-Continuously animated.
-
-![Preview](https://github.com/joshuaaaaa/studio-icons_beta/blob/main/docs/studio-icons-sil.gif)
 
 ## Installation
 
@@ -49,7 +28,7 @@ Continuously animated.
 
 ### Manual Installation
 
-1. Download `studio-icons.js` from the [latest release](https://github.com/joshuaaaaa/studio-icons_beta/releases)
+1. Download `studio-icons.js` from this repository
 2. Place it in your `config/www` folder
 3. Add to `configuration.yaml`:
 
@@ -69,206 +48,79 @@ Search for icons using the prefix:
 - `sil:` for loop icons (e.g., `sil:weather-sunny`)
 - `sis:` for state icons (e.g., `sis:alert-box-outline`)
 
-### Available Icons (25 icons)
+### Available Icons
 
-#### Weather
-| Icon Name | Type | Description |
-|-----------|------|-------------|
-| `weather-sunny` | SIL | Animated sun with rays |
-| `weather-partly-cloudy` | SIL | Sun with clouds |
-| `weather-night` | SIL | Moon and stars |
-| `weather-fog` | SIL | Foggy weather |
-| `weather-hail` | SIL | Hail animation |
-| `cloud-outline` | SIL | Floating cloud |
-| `lightning-bolt` | SIS | Flashing lightning |
-
-#### Home & Security
-| Icon Name | Type | Description |
-|-----------|------|-------------|
-| `door-open` | SIS | Animated door |
-| `lock-outline` | SIS | Lock with shackle animation |
-| `garage` | SIS | Garage door opening |
-| `motion-sensor` | SIL | Motion detection waves |
-| `sofa-single-outline` | SIS | Sofa icon |
-
-#### Devices
-| Icon Name | Type | Description |
-|-----------|------|-------------|
-| `lightbulb-outline` | SIS | Pulsing light bulb |
-| `fan` | SIL | Spinning fan blades |
-| `television` | SIS | TV with flickering screen |
-| `speaker` | SIS | Speaker with sound waves |
-| `thermostat` | SIL | Thermometer with rising level |
-| `power` | SIS | Power button pulse |
-| `wifi` | SIL | WiFi signal waves |
-
-#### Alerts & Notifications
 | Icon Name | Type | Description |
 |-----------|------|-------------|
 | `alert-box-outline` | SIS | Shaking alert icon |
+| `battery-charging` | SIL | Charging battery |
 | `bell-outline` | SIS | Ringing bell |
+| `blinds` | SIS | Window blinds |
+| `camera` | SIS | Camera icon |
+| `car` | SIL | Moving car |
+| `clock-outline` | SIL | Ticking clock |
+| `cloud-outline` | SIL | Floating cloud |
+| `cog-outline` | SIL | Spinning cog |
+| `door-open` | SIS | Animated door |
+| `email-outline` | SIS | Email notification |
+| `fan` | SIL | Spinning fan |
+| `fire` | SIL | Burning fire |
+| `garage` | SIS | Garage door |
 | `heart-outline` | SIS | Beating heart |
-
-#### Nature
-| Icon Name | Type | Description |
-|-----------|------|-------------|
-| `water-drop` | SIL | Bouncing water drop |
+| `home-outline` | SIS | Home icon |
 | `leaf` | SIL | Swaying leaf |
+| `lightbulb-outline` | SIS | Pulsing light bulb |
+| `lightning-bolt` | SIS | Flashing lightning |
+| `lock-outline` | SIS | Lock animation |
+| `motion-sensor` | SIL | Motion waves |
+| `music-note` | SIL | Bouncing note |
+| `package-variant` | SIS | Package icon |
 | `pot-steam-outline` | SIS | Steaming pot |
+| `power` | SIS | Power button |
+| `recycle` | SIL | Recycling arrows |
+| `run` | SIL | Running person |
+| `smoke-detector` | SIS | Smoke detector |
+| `sofa-single-outline` | SIS | Sofa icon |
+| `solar-panel` | SIL | Solar panel |
+| `speaker` | SIS | Speaker with sound |
+| `television` | SIS | TV screen |
+| `thermostat` | SIL | Thermometer |
+| `washing-machine` | SIL | Spinning drum |
+| `water-drop` | SIL | Bouncing drop |
+| `weather-fog` | SIL | Foggy weather |
+| `weather-hail` | SIL | Hail animation |
+| `weather-night` | SIL | Moon and stars |
+| `weather-partly-cloudy` | SIL | Sun with clouds |
+| `weather-sunny` | SIL | Animated sun |
+| `wifi` | SIL | WiFi waves |
+| `window-open` | SIS | Open window |
 
-### Advanced Configuration
+### Example Usage
 
-You can use the `studio-icon` element directly with additional attributes:
+```yaml
+# Button card example
+type: button
+entity: light.living_room
+icon: sil:lightbulb-outline
 
-```html
-<studio-icon
-  icon="sil:weather-sunny"
-  speed="1.5"
-  trigger="hover"
-  primary-color="#ff9800"
-></studio-icon>
+# Entity card example
+type: entities
+entities:
+  - entity: binary_sensor.motion
+    icon: sil:motion-sensor
+  - entity: lock.front_door
+    icon: sis:lock-outline
 ```
 
-#### Attributes
-
-| Attribute | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `icon` | string | - | Icon name with prefix (required) |
-| `state` | string | - | Entity state (`on`/`off`) |
-| `trigger` | string | auto | Animation trigger: `always`, `hover`, `state`, `click`, `once`, `none` |
-| `speed` | number | 1 | Animation speed multiplier |
-| `direction` | number | 1 | Animation direction (1 or -1) |
-| `loop` | boolean | true | Loop animation |
-| `renderer` | string | svg | Renderer: `svg`, `canvas` |
-| `primary-color` | string | - | Primary icon color |
-| `secondary-color` | string | - | Secondary color |
-| `accent-color` | string | - | Accent color |
-
-### CSS Custom Properties
+## CSS Custom Properties
 
 ```css
 studio-icon {
   --studio-icons-color: #ff9800;
-  --studio-icons-secondary-color: #2196f3;
-  --studio-icons-accent-color: #4caf50;
   --studio-icons-background: transparent;
   --mdc-icon-size: 32px;
 }
 ```
-
-## Development
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Setup
-
-```bash
-# Clone repository
-git clone https://github.com/joshuaaaaa/studio-icons_beta.git
-cd studio-icons_beta
-
-# Install dependencies
-npm install
-
-# Build icons
-npm run build:icons
-
-# Development mode (watch)
-npm run dev
-
-# Production build
-npm run build
-```
-
-### Project Structure
-
-```
-studio-icons_beta/
-├── src-v2/                 # TypeScript source (v2.0)
-│   ├── components/         # Web Components
-│   ├── utils/              # Utilities
-│   ├── styles/             # CSS styles
-│   ├── icons/              # Generated icon data
-│   ├── types.ts            # TypeScript definitions
-│   ├── constants.ts        # Constants
-│   └── index.ts            # Entry point
-├── src/                    # Legacy JavaScript (v1.x)
-├── lottie-json/            # Lottie animation files
-├── dist/                   # Built output
-├── scripts/                # Build scripts
-└── docs/                   # Documentation
-```
-
-### Adding New Icons
-
-1. Create animation in After Effects (24x24px, 25fps)
-2. Export as Lottie JSON using Bodymovin
-3. Place in `lottie-json/` folder
-4. Run `npm run build:icons`
-5. Rebuild: `npm run build`
-
-### Animation Guidelines
-
-- **Dimensions:** 24x24 pixels
-- **Frame rate:** 25 fps
-- **Duration:** 2 seconds (short) or 4 seconds (long)
-- **CSS Classes:**
-  - `.inline` - Fill color
-  - `.outline` - Stroke color
-  - `.background` - Background fill
-
-## Debugging
-
-Enable debug mode in browser console:
-
-```javascript
-localStorage.setItem('studio-icons-debug', 'true');
-```
-
-Access debugging utilities:
-
-```javascript
-// Check active animations
-window.StudioIcons.lottieLoader.getActiveCount();
-
-// View device capabilities
-window.StudioIcons.deviceDetector.detect();
-
-// Check cache stats
-window.StudioIcons.iconCache().then(cache => console.log(cache.getStats()));
-```
-
-## Changelog
-
-### v2.0.0
-- Complete rewrite in TypeScript
-- Lit Element based Web Component
-- MutationObserver instead of monkey-patching
-- Intersection Observer for performance
-- `prefers-reduced-motion` support
-- Lazy loading with caching
-- HACS integration
-- Multiple animation triggers
-- Multi-color support
-
-### v1.1.0
-- Fixed flickering issues
-- Fixed memory leaks in disconnectedCallback
-- Added initialization guards
-
-### v1.0.1
-- Initial beta release
-
-## Contributing
-
-Contributions are welcome! Please read our contributing guidelines before submitting PRs.
-
-- Report bugs via [GitHub Issues](https://github.com/joshuaaaaa/studio-icons_beta/issues)
-- Submit PRs for new features or fixes
-- Help create new icon animations
 
 ## License
 

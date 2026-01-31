@@ -1,6 +1,6 @@
 {
   "name": "Studio Icons",
   "render_readme": true,
-  "filename": "dist/studio-icons.js",
+  "filename": "studio-icons.js",
   "content_in_root": true
 }

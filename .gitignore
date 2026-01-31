@@ -1,11 +1,9 @@
 # Dependencies
 node_modules/
 
-# Build output (keep dist/ for HACS)
-# dist/
-
 # IDE
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
@@ -26,5 +24,16 @@ npm-debug.log*
 .cache/
 *.tsbuildinfo
 
-# Generated files (can be regenerated from source)
-src-v2/icons/index.ts
+# Development files (not needed for HACS)
+dist/
+src/
+src-v2/
+scripts/
+dev/
+docs/
+lottie-json/
+package.json
+package-lock.json
+rollup.config.js
+tsconfig.json
+*.ts
